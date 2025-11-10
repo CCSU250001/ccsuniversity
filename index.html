@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CCS University - Mirror Page</title>
+  <style>
+    body { margin:0; font-family: Arial, sans-serif; }
+    .topbar { background:#003366; color:#fff; padding:10px 16px; display:flex; align-items:center; gap:12px;}
+    .topbar a { color:#fff; text-decoration:none; padding:6px 10px; border:1px solid rgba(255,255,255,0.15); border-radius:4px; }
+    .notice { font-size:14px; opacity:0.95; }
+    iframe { width:100%; height:calc(100vh - 52px); border:0; display:block; }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="notice">Ye page aapke domain par host hai — asli site CCS University se load hoti hai.</div>
+    <div style="margin-left:auto">
+      <!-- Aapka custom link -->
+      <a href="https://example.com/your-link" target="_blank" rel="noopener">Custom Link</a>
+      <!-- Direct link to original site (open in new tab) -->
+      <a href="https://ccsuniversity.ac.in/" target="_blank" rel="noopener">Open CCS University (Original)</a>
+    </div>
+  </div>
+
+  <iframe id="frame" src="https://ccsuniversity.ac.in/" title="CCS University"></iframe>
+
+  <script>
+    // fallback: agar iframe block hua (security), user ko redirect/notice dikhayenge
+    window.addEventListener('message', function(){});
+    setTimeout(function(){
+      const iframe = document.getElementById('frame');
+      try {
+        // test cross-domain access (will throw if blocked)
+        const doc = iframe.contentDocument || iframe.contentWindow.document;
+        // agar accessible nahi to exception aayega
+      } catch (e) {
+        // iframe blocked by X-Frame-Options; show fallback
+        iframe.outerHTML = '<div style="padding:40px;text-align:center;">This site prevents framing. <br><a href="https://ccsuniversity.ac.in/" target="_blank">Click here to open CCS University (Original)</a></div>';
+      }
+    },1200);
+  </script>
+</body>
+</html>
